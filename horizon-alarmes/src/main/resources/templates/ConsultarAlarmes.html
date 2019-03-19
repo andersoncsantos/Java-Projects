@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Consulta Alarmes</title>
+    
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/vendors.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/stylesheets/vendors/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/horizon-alarmes.css}"/>
+    
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <br/>
+            </div>
+        </div>
+        <form method="GET" th:object="${alarme}">
+	        <div class="row">
+	            <div class="col-sm-2">
+					<input class="form-control form-control-sm" type="text" id="incidente" 
+	                placeholder="Incident" th:field="*{incidente}">
+	                <br/>
+	            </div>
+	            <div class="col-sm-2">
+	                <input class="form-control form-control-sm" type="text" id="site" 
+	                placeholder="Site" th:field="*{site}">
+	                <br/>
+	            </div>
+	            <div class="col-sm-3">
+	                <button type="submit" class="btn px-4 btn-secondary btn-sm">Search</button>
+	            </div>
+	          
+	            <div class="col-sm-3">  
+	                <br>
+	            </div>
+	        </div>
+        </form>
+        <div class="row">
+            <div class="table-responsive">
+            <table class="table table-bordered">
+	            <thead style="background-color:#de5106; color:white; font-size: 13px">
+	              <tr>
+	              	<th scope="col">
+						<a th:href="${pagina.urlOrdenada('incidente')}" style="color: azure">
+							<span>Incident</span>
+							<span class="dropup" th:remove="${pagina.descendente('incidente')} ? tag">
+								<span class="caret"></span>
+							</span>
+						</a>
+					</th>
+					<th scope="col">
+						<a th:href="${pagina.urlOrdenada('site')}" style="color: azure">
+							<span>Site</span>
+							<span class="dropup" th:remove="${pagina.descendente('site')} ? tag">
+								<span class="caret"></span>
+							</span>
+						</a>
+					</th>
+	                <th scope="col">Start Date</th>
+	                <th scope="col">
+						<a th:href="${pagina.urlOrdenada('dataFim')}" style="color: azure">
+							<span>End Date</span>
+							<span class="dropup" th:remove="${pagina.descendente('dataFim')} ? tag">
+								<span class="caret"></span>
+							</span>
+						</a>
+					</th>
+	                <th scope="col">Status</th>
+	                <th scope="col">Alarm</th>
+	                <th scope="col">Description</th>
+	                <th scope="col">Platform</th>
+	              </tr>
+	            </thead>
+	            <tbody style="font-size: 13px">
+	              <tr th:each="alarme : ${pagina.content}">
+	                <td th:text="${alarme.incidente}"></td>
+	                <td th:text="${alarme.site}"></td>
+	                <td th:text="${alarme.dataInicio}"></td>
+	                <td th:text="${alarme.dataFim}"></td>
+	                <td th:text="${alarme.status}"></td>
+	                <td th:text="${alarme.alarme}"></td>
+	                <td th:text="${alarme.descricao}"></td>
+	                <td th:text="${alarme.plataforma}"></td>
+	              </tr>
+	              <tr th:if="${#lists.isEmpty(pagina.content)}">
+	              	<td colspan="8" class="text-center">No Registries Found!</td>
+	              </tr>
+	            </tbody>
+            </table>
+            </div>
+        </div>
+        <div class="col-sm-12  text-center" th:if="${not #lists.isEmpty(pagina.content)}">
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination pagination-sm justify-content-center">
+			    <li th:class="${pagina.primeira} ? page-item + ' ' + disabled">
+			      <a class="page-link" th:href="${pagina.urlParaPagina(pagina.atual - 1)}" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    <th:block th:each="p : ${#numbers.sequence(1, pagina.total)}" th:with="numeroPagina=${p - 1}">
+				    <li th:class="${pagina.atual == numeroPagina} ? page-item + ' ' + active">
+				    <a class="page-link" th:href="${pagina.urlParaPagina(numeroPagina)}">[[${p}]]</a></li>
+			    </th:block>
+			    <li th:class="${pagina.ultima} ? page-item + ' ' + disabled">
+			      <a class="page-link" th:href="${pagina.urlParaPagina(pagina.atual + 1)}" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li>
+			  </ul>
+			</nav>
+		</div>
+    </div>
+    
+</body>
+</html>

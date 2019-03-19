@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html
+xmlns:th="http://www.thymeleaf.org" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/horizon-alarmes.css}" />
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    
+    <title>Consulta Alarmes</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <br/>
+            </div>
+        </div>
+        <form method="GET" th:object="${alarme}">
+	        <div class="row">
+	            <div class="col-sm-3">
+	                <input class="form-control form-control-sm" type="text" id="incidente" 
+	                placeholder="Incidente" th:field="*{incidente}" >
+	                <br/>
+	            </div>
+	            <div class="col-sm-3">
+	                <input class="form-control form-control-sm" type="text" id="site" 
+	                placeholder="Site" th:field="*{site}" > 
+	                <br/>
+	            </div>
+	            <div class="col-sm-3">
+	                <button type="submit" class="btn px-4 btn-secondary btn-sm">Pesquisar</button>
+	            </div>
+	          
+	            <div class="col-sm-3">  
+	                <br>
+	            </div>
+	        </div>
+        </form>
+        <div class="row">
+            <div class="col-sm-12 table-responsive">
+            <table class="table table-sm table-bordered ha-tabela-cerveja-valor-pequeno">
+	            <thead style="background-color:#de5106; color:white">
+	              <tr>
+	                <th scope="col">Site</th>
+	                <th scope="col">Data Início</th>
+	                <th scope="col">Data Fim</th>
+	                <th scope="col">Status</th>
+	                <th scope="col">Alarme</th>
+	                <th scope="col">Descrição</th>
+	                <th scope="col">Incidente</th>
+	                <th scope="col">Plataforma</th>
+	              </tr>
+	            </thead>
+	            <tbody>
+	              <tr th:each="alarme : ${alarmes}">
+	                <td th:text="${alarme.site}"></td>
+	                <td th:text="${alarme.dataInicio}"></td>
+	                <td th:text="${alarme.dataFim}"></td>
+	                <td th:text="${alarme.status}"></td>
+	                <td th:text="${alarme.alarme}"></td>
+	                <td th:text="${alarme.descricao}"></td>
+	                <td th:text="${alarme.incidente}"></td>
+	                <td th:text="${alarme.plataforma}"></td>
+	              </tr>
+	            </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>

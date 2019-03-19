@@ -1,0 +1,8 @@
+com\nextel\hotizonalarmes\repository\Alarmes.class
+com\nextel\hotizonalarmes\config\init\AppInitializer.class
+com\nextel\hotizonalarmes\repository\helper\AlarmesQueries.class
+com\nextel\hotizonalarmes\config\JPAConfig.class
+com\nextel\hotizonalarmes\controller\AlarmesController.class
+com\nextel\hotizonalarmes\config\WebConfig.class
+com\nextel\hotizonalarmes\model\Alarme.class
+com\nextel\hotizonalarmes\repository\helper\AlarmesImpl.class
